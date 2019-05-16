@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 //---------------------------------------------------------------------------------------------
-// Skriv in vad programmet gör
+// Skriv in vad programmet gï¿½r
 //---------------------------------------------------------------------------------------------
 public class MinBil extends JPanel
 implements Runnable{
@@ -15,7 +15,7 @@ implements Runnable{
 // Konstruktor
 //---------------------------------------------------------------------------------------------
 	public MinBil(){
-// Här dras bearbetningen igång
+// Hï¿½r dras bearbetningen igï¿½ng
 		t.start();
 		start();
 	}//end konstruktor
@@ -51,10 +51,10 @@ implements Runnable{
 		//Himmel
 		g.setColor(Color.blue);
 		g.fillRect(0,0,800,150);
-		//Gräs
+		//Grï¿½s
 		g.setColor(Color.green);
 		g.fillRect(0,150,800,100);
-		//Väg
+		//Vï¿½g
 		g.setColor(Color.gray);
 		g.fillRect(0,250,800,150);
 		//Mittlinje
@@ -62,6 +62,7 @@ implements Runnable{
 		for(int i=0;i<800;i=i+100){
 		g.drawLine(i,300,i+50,300);
 	}//end for i
+		
 		//Kaross
 		g.setColor(Color.darkGray);
 		g.fillRect(x,y,150,50);
@@ -73,7 +74,7 @@ implements Runnable{
 		g.fillOval(x+95,y+25,50,50);
 }//end paint()
 //---------------------------------------------------------------------------------------------
-// Drar igång programmet
+// Drar igï¿½ng programmet
 //---------------------------------------------------------------------------------------------
 	public static void main(String[] args){
 		JFrame f = new JFrame();

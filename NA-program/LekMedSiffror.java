@@ -8,9 +8,8 @@ public class LekMedSiffror {
 // Deklarationer
 //---------------------------------------------------------------------------------------------
 	String 	indata, tal;
-	int fran, till, digRot, antal, n, siffror, length, multRot;
-	//int multRot = 1;
-	char kar[];
+	int fran, till, dRot, antal, n, siffror, length, mRot;
+	char kar;
 	boolean run = true;
 //---------------------------------------------------------------------------------------------
 // Konstruktor
@@ -22,9 +21,9 @@ public class LekMedSiffror {
 //---------------------------------------------------------------------------------------------
 // Läser in spannet av tal
 // Kör for-loop med start i talet "fran" för varje tal i spannet
-// multRot sätts till 1 för enkel multiplicering
-// Kollar om multRot>=10 och därför om loopen behöver köras igen eller om loopen är färdig
-// Annars kör loopen, tar ut karaktär för karaktär och multiplicerar med multRot
+// mRot sätts till 1 för enkel multiplicering / reset för varje nytt tal
+// Kollar om mRot>=10 och därför om loopen behöver köras igen eller om loopen är färdig
+// Annars kör loopen, tar ut värdet för karaktär och multiplicerar med mRot
 // Räknar ut digital rot med mod 9 (%-tecken)
 // Jämför om lika, isåfall lägger till antal
 //---------------------------------------------------------------------------------------------
@@ -41,14 +40,14 @@ public class LekMedSiffror {
         	tal 		= Integer.toString(siffror);
         	run 		= true;
         	
-        	multRot = 1;
+        	mRot = 1;
         	length 	= tal.length();
         	
-        	for (int i=0; i<=length; i=i+1) {	
-		        if(i == length && multRot >= 10) {
+        	for (int i=0; i<=length; i=i+1) {
+		        if(i == length && mRot >= 10) {
 		        	i		= 0;
-		        	siffror = multRot;
-		        	multRot = 1;
+		        	siffror = mRot;
+		        	mRot = 1;
 		        	tal 	= Integer.toString(siffror);
 		        	length 	= tal.length();
 		        }//end if
@@ -56,15 +55,13 @@ public class LekMedSiffror {
 		        	break;
 		        }//end else if
 	        		
-		        kar 	= new char[10];
-		        kar[i] 	= tal.charAt(i);
-		        
-		        multRot = multRot * Character.getNumericValue(kar[i]);
+		        kar 	= tal.charAt(i);
+		        mRot = mRot * Character.getNumericValue(kar);
         	}//end for
 
-        	digRot = (1 + (n - 1) % 9);
+        	dRot = (1 + (n - 1) % 9);
          
-        	if(digRot == multRot) {
+        	if(dRot == mRot) {
         		antal = antal+1;
         	}//end if
 

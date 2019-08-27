@@ -21,8 +21,8 @@ public class Moms {
 //---------------------------------------------------------------------------------------------
 	public void bearbeta(){
 // System.out.println("bearbeta()");
-		
-//		JOptionPane.showMessageDialog(null,"Hej " + namn);
+		double kostnad = Double.parseDouble(pris) * (1 + (Double.parseDouble(moms)/100));
+		JOptionPane.showMessageDialog(null,"Pris inklusive moms " + kostnad);
 	}//end bearbeta()
 
 //---------------------------------------------------------------------------------------------

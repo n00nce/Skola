@@ -1,18 +1,19 @@
-import javax.swing.*;
+import javax.swing.JOptionPane;
 //---------------------------------------------------------------------------------------------
-// Skriv in vad programmet gör
+// Skriv in vad programmet gï¿½r
 //---------------------------------------------------------------------------------------------
-public class HejDu {
+public class Moms {
 //---------------------------------------------------------------------------------------------
 // Deklarationer
 //---------------------------------------------------------------------------------------------
-	String namn; 
+	String pris, moms; 
 //---------------------------------------------------------------------------------------------
 // Konstruktor
 //---------------------------------------------------------------------------------------------
-	public HejDu(){
-// Här dras bearbetningen igång
-		namn = JOptionPane.showInputDialog("Vad heter du?");
+	public Moms(){
+
+		pris = JOptionPane.showInputDialog("Pris?");
+		moms = JOptionPane.showInputDialog("Moms i %?");
 		bearbeta();
 	}//end konstraktor
 //---------------------------------------------------------------------------------------------
@@ -20,16 +21,16 @@ public class HejDu {
 //---------------------------------------------------------------------------------------------
 	public void bearbeta(){
 // System.out.println("bearbeta()");
-		JOptionPane.showMessageDialog(null,"Hej " + namn);
-		System.out.println("Hej!");
+		
+//		JOptionPane.showMessageDialog(null,"Hej " + namn);
 	}//end bearbeta()
 
 //---------------------------------------------------------------------------------------------
-// Drar igång programmet
+// Drar igï¿½ng programmet
 //---------------------------------------------------------------------------------------------
 	public static void main(String[] args){
-	}//end bearbeta()
-	HejDu p = new HejDu();
+		Moms p = new Moms();
+	}
 }//end class
 
 

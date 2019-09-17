@@ -1,35 +1,48 @@
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.*;
 //---------------------------------------------------------------------------------------------
-// Skriv in vad programmet g�r
+// Skriv in vad programmet gör
 //---------------------------------------------------------------------------------------------
-public class Moms {
+public class Studs0AppV1 extends JPanel {
 //---------------------------------------------------------------------------------------------
 // Deklarationer
 //---------------------------------------------------------------------------------------------
-	String pris, moms; 
+double bollX=180;
+double bollY=180;
 //---------------------------------------------------------------------------------------------
 // Konstruktor
 //---------------------------------------------------------------------------------------------
-	public Moms(){
+	public Studs0AppV1(){
 // Här dras bearbetningen igång
-		pris = JOptionPane.showInputDialog("Pris?");
-		moms = JOptionPane.showInputDialog("Moms i %?");
-		bearbeta();
+
 	}//end konstraktor
 //---------------------------------------------------------------------------------------------
 // Metoder som bearbetar -motor
 //---------------------------------------------------------------------------------------------
-	public void bearbeta(){
-// System.out.println("bearbeta()");
-		double kostnad = Double.parseDouble(pris) * (1 + (Double.parseDouble(moms)/100));
-		JOptionPane.showMessageDialog(null,"Pris inklusive moms " + kostnad);
-	}//end bearbeta()
+
+	
+//--------------------------------------------------------------------------------------------------
+// Rita	
+//--------------------------------------------------------------------------------------------------
+	public void paintComponent (Graphics g){
+//System.out.println("Paint()");
+		g.setColor(Color.black);
+		g.fillRect(0,0,400,400);
+		
+		g.setColor(Color.white);
+		g.fillOval((int)bollX,(int)bollY, 20, 20);
+		}//end paint
 //---------------------------------------------------------------------------------------------
-// Drar ig�ng programmet
+// Drar igång programmet
 //---------------------------------------------------------------------------------------------
 	public static void main(String[] args){
-		Moms p = new Moms();
-	}
+		JFrame f = new JFrame();
+		f.setSize (400,400);
+		f.setLocation(900,100);
+		f.setTitle("PanelMall");
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Studs0AppV1 p = new Studs0AppV1();
+		f.add(p);
+		f.setVisible(true);
+	}//end bearbeta()
 }//end class
-
-

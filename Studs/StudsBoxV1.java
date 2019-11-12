@@ -3,53 +3,54 @@ import java.awt.*;
 //---------------------------------------------------------------------------------------------
 // Skriv in vad programmet gör
 //---------------------------------------------------------------------------------------------
-public class Studs0AppV4 extends JPanel implements Runnable {
+public class StudsBoxV1 extends JPanel {
 //---------------------------------------------------------------------------------------------
 // Deklarationer
 //---------------------------------------------------------------------------------------------
-	Thread t = new Thread(this);
-	StudsOvalV1 studs;
+	double posX=180;
+	double posY=180;
+	double vx, vy;
 //---------------------------------------------------------------------------------------------
 // Konstruktor
 //---------------------------------------------------------------------------------------------
-	public Studs0AppV4(){
+	public StudsBoxV1(){
 // Här dras bearbetningen igång
-		studs = new StudsOvalV1();
-		t.start();
+		vx = 2*Math.random()-1;
+		vy = 2*Math.random()-1;
 	}//end konstruktor
 //---------------------------------------------------------------------------------------------
 // Metoder som bearbetar -motor
 //---------------------------------------------------------------------------------------------
-	public void run(){
-	requestFocus();
-		while(true){
-			try{Thread.sleep(1);}
-			catch(InterruptedException ie){}
-			repaint();
-			studs.move();
-		}//end while
-	}//end run()
+	public void move(){
+		posX = posX - vx;
+		posY = posY - vy;
+		
+		//Studs Tak
+		if(posY <= 0) {
+		vy = -vy;
+		}//END IF
+		
+		//Studs Botten
+		else if(posY >= 350) {
+		vy = -vy;
+		}//END ELSE IF
+		
+		//Studs Vänster
+		else if(posX <= 0) {
+		vx = -vx;
+		}//END ELSE IF
+		
+		//Studs Höger
+		else if(posX >= 370) {
+		vx = -vx;
+		}//END ELSE IF
+	}// end move()
 //--------------------------------------------------------------------------------------------------
 // Rita	
 //--------------------------------------------------------------------------------------------------
-	public void paint (Graphics g){
+	public void draw (Graphics g){
 //System.out.println("Paint()");
-		g.setColor(Color.black);
-		g.fillRect(0,0,400,400);
-		
-		studs.draw(g);
-	}//end paint
-//---------------------------------------------------------------------------------------------
-// Drar igång programmet
-//---------------------------------------------------------------------------------------------
-	public static void main(String[] args){
-		JFrame f = new JFrame();
-		f.setSize (400,400);
-		f.setLocation(900,100);
-		f.setTitle("PanelMall");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Studs0AppV4 p = new Studs0AppV4();
-		f.add(p);
-		f.setVisible(true);
-	}//end bearbeta()
+		g.setColor(Color.white);
+		g.fillRect((int)posX,(int)posY, 20, 20);
+	}//end draw()
 }//end class

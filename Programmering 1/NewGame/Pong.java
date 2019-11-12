@@ -12,7 +12,7 @@ implements ActionListener, Runnable, KeyListener {
 	int vRacketX = 90, vRacketY = 290;
 	int hRacketX = 590, hRacketY = 290;
 	int racketBredd = 10;
-	double bollX = 345, bollY = 323;
+	double posX = 345, posY = 323;
 	double vx = 1.5, vy = 0.5;
 	int RacketY = 2;
 	int vPoang = 0, hPoang = 0;
@@ -24,7 +24,7 @@ implements ActionListener, Runnable, KeyListener {
 // Konstruktor
 //--------------------------------------------------------------------------------------------------
 	public Pong (){
-//Här dras bearbetningen igång
+//Hï¿½r dras bearbetningen igï¿½ng
 		this.setLayout(null);
 		addKeyListener(this);
 //Knapp
@@ -54,8 +54,8 @@ implements ActionListener, Runnable, KeyListener {
 			try{Thread.sleep(5);}
 			catch(InterruptedException ie){}
 			repaint();
-			bollX = bollX - vx;
-			bollY = bollY - vy;
+			posX = posX - vx;
+			posY = posY - vy;
 		//Knappar
 			if(wUp) vRacketY = vRacketY - RacketY;
 			if(sDown) vRacketY = vRacketY + RacketY;
@@ -67,39 +67,39 @@ implements ActionListener, Runnable, KeyListener {
 			if(hRacketY<0) hRacketY = 0; 
 			if(hRacketY>600) hRacketY = 600;
 		//Studs Racket
-			if(bollX <= vRacketX+racketBredd &&
-				bollX >= vRacketX &&
-				bollY >= vRacketY &&
-				bollY <= vRacketY+60) {
+			if(posX <= vRacketX+racketBredd &&
+				posX >= vRacketX &&
+				posY >= vRacketY &&
+				posY <= vRacketY+60) {
 				vy = (int)(Math.random()*4)-2;
 				vx = -vx;
 			}//END IF
-			else if(bollX <= hRacketX + racketBredd &&
-					bollX >= hRacketX &&
-					bollY >= hRacketY &&
-					bollY <= hRacketY+60) {
+			else if(posX <= hRacketX + racketBredd &&
+					posX >= hRacketX &&
+					posY >= hRacketY &&
+					posY <= hRacketY+60) {
 					vy = (int)(Math.random()*4)-2;
 					vx = -vx;
 			}//END ELSE IF
-		//Studs Vägg
-			if((int)bollY <= 0) {
+		//Studs Vï¿½gg
+			if((int)posY <= 0) {
 			vy = -vy;
 			}//END IF
-			else if((int)bollY >= 650) {
+			else if((int)posY >= 650) {
 			vy = -vy;
 			}//END ELSE IF
-		//Poäng
-			if(bollX <= 0) {
-			bollX = 345;
-			bollY = 323;
+		//Poï¿½ng
+			if(posX <= 0) {
+			posX = 345;
+			posY = 323;
 			hPoang = hPoang + 1;
 			vx = -vx;
 			vRacketY = 290;
 			hRacketY = 290;
 			}
-			else if(bollX >= 700) {
-			bollX = 345;
-			bollY = 323;
+			else if(posX >= 700) {
+			posX = 345;
+			posY = 323;
 			vPoang = vPoang + 1;
 			vx = -vx;
 			vRacketY = 290;
@@ -139,22 +139,22 @@ implements ActionListener, Runnable, KeyListener {
 		for(int i = 0; i < 700; i = i + 2){
 			g.fillRect(345,i*10,10,10);
 		}//end for i
-//Poängtavla
+//Poï¿½ngtavla
 		g.setFont(new Font("Arial", Font.BOLD, 90));
 		g.drawString(""+vPoang+"", 150, 150);
 		g.drawString(""+hPoang+"", 500, 150);
-//Vänster Racket
+//Vï¿½nster Racket
 		g.setColor(Color.white);
 		g.fillRect(vRacketX,vRacketY,racketBredd,60);
-//Höger Racket
+//Hï¿½ger Racket
 		g.setColor(Color.white);
 		g.fillRect(hRacketX,hRacketY,racketBredd,60);
 //runda bollen
 		g.setColor(Color.white);
-		g.fillOval((int)bollX,(int)bollY,10,10);
+		g.fillOval((int)posX,(int)posY,10,10);
 	}//end paint
 //--------------------------------------------------------------------------------------------------
-// Drar igång programet
+// Drar igï¿½ng programet
 //--------------------------------------------------------------------------------------------------
 	public static void main(String[]args) {
 		JFrame f = new JFrame();

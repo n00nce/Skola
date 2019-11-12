@@ -7,8 +7,8 @@ public class Studs0AppV2 extends JPanel implements Runnable {
 //---------------------------------------------------------------------------------------------
 // Deklarationer
 //---------------------------------------------------------------------------------------------
-	double bollX=180;
-	double bollY=180;
+	double posX=180;
+	double posY=180;
 	double vx, vy;
 	Thread t = new Thread(this);
 //---------------------------------------------------------------------------------------------
@@ -30,8 +30,8 @@ public class Studs0AppV2 extends JPanel implements Runnable {
 				try{Thread.sleep(5);}
 				catch(InterruptedException ie){}
 				repaint();
-				bollX = bollX - vx;
-				bollY = bollY - vy;
+				posX = posX - vx;
+				posY = posY - vy;
 			
 			}//end while
 		}//end run()
@@ -45,7 +45,7 @@ public class Studs0AppV2 extends JPanel implements Runnable {
 		g.fillRect(0,0,400,400);
 		
 		g.setColor(Color.white);
-		g.fillOval((int)bollX,(int)bollY, 20, 20);
+		g.fillOval((int)posX,(int)posY, 20, 20);
 	}//end paint
 //---------------------------------------------------------------------------------------------
 // Drar igång programmet

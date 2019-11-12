@@ -7,8 +7,8 @@ public class Studs0AppV3 extends JPanel implements Runnable {
 //---------------------------------------------------------------------------------------------
 // Deklarationer
 //---------------------------------------------------------------------------------------------
-	double bollX=180;
-	double bollY=180;
+	double posX=180;
+	double posY=180;
 	double vx, vy;
 	Thread t = new Thread(this);
 //---------------------------------------------------------------------------------------------
@@ -31,27 +31,27 @@ public class Studs0AppV3 extends JPanel implements Runnable {
 			catch(InterruptedException ie){}
 			repaint();
 			move();
-			bollX = bollX - vx;
-			bollY = bollY - vy;
+			posX = posX - vx;
+			posY = posY - vy;
 			
 		}//end while
 	}//end run()
 //Move
 	public void move(){
 		//Studs Tak
-		if(bollY <= 0) {
+		if(posY <= 0) {
 		vy = -vy;
 		}//END IF
 		//Studs Botten
-		else if(bollY >= 350) {
+		else if(posY >= 350) {
 		vy = -vy;
 		}//END ELSE IF
 		//Studs Vänster
-		else if(bollX <= 0) {
+		else if(posX <= 0) {
 		vx = -vx;
 		}//END ELSE IF
 		//Studs Höger
-		else if(bollX >= 370) {
+		else if(posX >= 370) {
 		vx = -vx;
 		}//END ELSE IF
 	}
@@ -64,7 +64,7 @@ public class Studs0AppV3 extends JPanel implements Runnable {
 		g.fillRect(0,0,400,400);
 		
 		g.setColor(Color.white);
-		g.fillOval((int)bollX,(int)bollY, 20, 20);
+		g.fillOval((int)posX,(int)posY, 20, 20);
 	}//end paint
 //---------------------------------------------------------------------------------------------
 // Drar igång programmet

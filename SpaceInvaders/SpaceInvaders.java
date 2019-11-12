@@ -33,7 +33,7 @@ implements ActionListener, Runnable, KeyListener {
 // Konstruktor
 //---------------------------------------------------------------------------------------------
 	public SpaceInvaders(){
-// Här dras bearbetningen ig�ng
+// Här dras bearbetningen igång
 		this.setLayout(null);
 		addKeyListener(this);
 

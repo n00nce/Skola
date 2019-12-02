@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 //---------------------------------------------------------------------------------------------
@@ -29,6 +30,7 @@ implements ActionListener, Runnable, KeyListener {
 	int plyrX = 340; 
 	int plyrY = 650;
 	int slutX, slutY;
+	int hits = 0;
 //---------------------------------------------------------------------------------------------
 // Konstruktor
 //---------------------------------------------------------------------------------------------
@@ -84,7 +86,7 @@ implements ActionListener, Runnable, KeyListener {
 				if (pilRight) {
 					plyrX = plyrX + vx;
 				}
-				
+				endGame();
 				repaint();
 			}//while 
 		}//end run()
@@ -109,11 +111,17 @@ implements ActionListener, Runnable, KeyListener {
 //---------------------------------------------------------------------------------------------
 // Counter
 //---------------------------------------------------------------------------------------------
-		public int count(){		
+		public void endGame(){		
 //			System.out.println("move();");
-			int count = 0;
-			
-			return count;
+			if (hits==40) {
+				JOptionPane.showMessageDialog(null,"Du vann!");
+				for (int i=0; i<8; i=i+1) {
+					for (int j=0; j<5; j=j+1) {
+						alien[i][j].destroyed = false;
+						hits=0;
+					}//for j
+				}//for i 
+			}
 		}// end move()
 //---------------------------------------------------------------------------------------------
 // Hit detection
@@ -123,14 +131,13 @@ implements ActionListener, Runnable, KeyListener {
 			for (int i=0; i<8; i=i+1) {
 				for (int j=0; j<5; j=j+1) {
 					if (shot.posX <= alien[i][j].x+20 	&&
-						shot.posX+10 >= alien[i][j].x		&&
+						shot.posX+10 >= alien[i][j].x	&&
 						shot.posY >= alien[i][j].y		&&
 						shot.posY <= alien[i][j].y+20) {
-						System.out.println("hit");
-						
 						alien[i][j].destroyed = true;
 						shot.posY = plyrY;
 						shot.posX = plyrX;
+						hits ++;
 						}	
 				}//for j
 			}//for i 

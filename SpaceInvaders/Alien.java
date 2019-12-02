@@ -8,7 +8,7 @@ public class Alien extends JPanel {
 // Deklarationer
 //---------------------------------------------------------------------------------------------
 	int x= 190, y = 100;
-	int vx = 0, vy = 0;
+	int vx = 10, vy = 10;
 	Color color = Color.white;
 	boolean destroyed = false;
 //---------------------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ public class Alien extends JPanel {
 		y = j;
 		
 		g.setColor(color);
-		g.fillRect(i,j, 20, 20);
+		g.fillRect(x,y, 20, 20);
 		
 	}//draw
 

@@ -21,7 +21,7 @@ public class Shot extends JPanel {
 // Metoder som bearbetar -motor
 //---------------------------------------------------------------------------------------------
 	public void move(){
-		
+		vy = 1;
 		posY = posY - vy;
 		
 		

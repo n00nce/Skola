@@ -77,13 +77,13 @@ implements ActionListener, Runnable, KeyListener {
 				}//for i 
 				*/
 				shot.move();
+				hit();
 				if (pilLeft) {
 					plyrX = plyrX - vx;
 				}
 				if (pilRight) {
 					plyrX = plyrX + vx;
 				}
-				hit();
 				
 				repaint();
 			}//while 
@@ -122,7 +122,7 @@ implements ActionListener, Runnable, KeyListener {
 //					System.out.println("move();");
 			for (int i=0; i<8; i=i+1) {
 				for (int j=0; j<5; j=j+1) {
-					if (shot.posX+10 <= alien[i][j].x+20 	&&
+					if (shot.posX <= alien[i][j].x+20 	&&
 						shot.posX+10 >= alien[i][j].x		&&
 						shot.posY >= alien[i][j].y		&&
 						shot.posY <= alien[i][j].y+20) {
@@ -146,7 +146,7 @@ implements ActionListener, Runnable, KeyListener {
 			for (int j=0; j<5; j=j+1) {
 				if (alien[i][j].destroyed) {
 					slutX = 1000;
-					slutY = 1000;
+					slutY = 100;
 				}
 				else {
 					posX = 190;
@@ -171,7 +171,7 @@ implements ActionListener, Runnable, KeyListener {
 	public static void main(String[] args){
 		JFrame f = new JFrame();
 		f.setSize(700,700);
-		f.setLocation(1000,100);
+		f.setLocation(100,100);
 		f.setTitle("Space Invaders");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpaceInvaders p = new SpaceInvaders();

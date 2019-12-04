@@ -8,9 +8,11 @@ public class Alien extends JPanel {
 // Deklarationer
 //---------------------------------------------------------------------------------------------
 	int x= 190, y = 100;
-	int vx = 10, vy = 10;
+	int vx = 2, vy = 1;
 	Color color = Color.white;
 	boolean destroyed = false;
+	boolean first = true;
+	boolean left = true;
 //---------------------------------------------------------------------------------------------
 // Konstruktor
 //---------------------------------------------------------------------------------------------
@@ -23,9 +25,13 @@ public class Alien extends JPanel {
 //---------------------------------------------------------------------------------------------
 	public void move(){		
 //		System.out.println("move();");
-		
-		x = x + vx;
-		y = y + vy;
+		if (left) {
+		x = x - vx;
+		}
+		else{
+			x = x + vx;
+		}
+		//y = y + vy;
 		
 	}// end move()
 //---------------------------------------------------------------------------------------------
@@ -36,9 +42,22 @@ public class Alien extends JPanel {
 		x = x + i;
 		y = y + j;
 		*/
+		if (destroyed) {
+			x = 1000;
+			y = 1000;
+		}
+		else if (first) {
 		x = i;
 		y = j;
-		
+		first = false;
+		}
+		else if(x == i-380){
+			y=y+20;
+			left = false;
+		}
+		else if(x>=700) {
+			left=true;
+		}
 		g.setColor(color);
 		g.fillRect(x,y, 20, 20);
 		

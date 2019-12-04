@@ -23,9 +23,9 @@ implements ActionListener, Runnable, KeyListener {
 	boolean pilLeft = false, pilRight = false, shoot = false;
 	Alien[][] alien = new Alien[8][5];
 	Shot shot = new Shot();
-	int posX=190;
+	int posX=380;
 	int posY=100;
-	int vx=1;
+	int vx=10;
 	int plyrX = 340; 
 	int plyrY = 650;
 	int slutX, slutY;
@@ -67,15 +67,15 @@ implements ActionListener, Runnable, KeyListener {
 		public void run(){
 			requestFocus();
 			while(true){
-				try{Thread.sleep(2);}
+				try{Thread.sleep(25);}
 				catch(InterruptedException ie){}
-				/*
+				
 				for (int i=0; i<8; i=i+1) {
 					for (int j=0; j<5; j=j+1) {
 						alien[i][j].move();
 					}//for j
 				}//for i 
-				*/
+				
 				shot.move();
 				hit();
 				if (pilLeft) {
@@ -107,15 +107,6 @@ implements ActionListener, Runnable, KeyListener {
 //keyTyped
 	public void keyTyped(KeyEvent ke){}
 //---------------------------------------------------------------------------------------------
-// Counter
-//---------------------------------------------------------------------------------------------
-		public int count(){		
-//			System.out.println("move();");
-			int count = 0;
-			
-			return count;
-		}// end move()
-//---------------------------------------------------------------------------------------------
 // Hit detection
 //---------------------------------------------------------------------------------------------
 		public void hit(){		
@@ -144,14 +135,11 @@ implements ActionListener, Runnable, KeyListener {
 		g.fillRect(0,0,700,700);
 		for (int i=0; i<8; i=i+1) {
 			for (int j=0; j<5; j=j+1) {
-				if (alien[i][j].destroyed) {
-					slutX = 1000;
-					slutY = 100;
-				}
-				else {
-					posX = 190;
 					slutX = posX+40*i;
 					slutY = posY+40*j;
+				if (!alien[i][j].destroyed &&
+					alien[i][j].x>700) {
+					
 				}
 				alien[i][j].draw(g, slutX, slutY);
 				

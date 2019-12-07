@@ -17,50 +17,33 @@ public class Alien extends JPanel {
 // Konstruktor
 //---------------------------------------------------------------------------------------------
 	public Alien(){
-// Här dras bearbetningen igång
-		
 	}//end konstruktor
 //---------------------------------------------------------------------------------------------
 // Metoder som bearbetar -motor
 //---------------------------------------------------------------------------------------------
 	public void move(){		
-//		System.out.println("move();");
+//System.out.println("move();");
 		if (left) {
-		x = x - vx;
-		}
-		else{
+			x = x - vx;
+		}//end if
+		else {
 			x = x + vx;
-		}
-		//y = y + vy;
-		
+		}//end else	
 	}// end move()
 //---------------------------------------------------------------------------------------------
 // Rita	
 //---------------------------------------------------------------------------------------------
 	public void draw(Graphics g, int i, int j) {
-		/*
-		x = x + i;
-		y = y + j;
-		*/
-		if (destroyed) {
+		if (first) {
+			x = i;
+			y = j;
+			first = false;
+		}
+		else if (destroyed) {
 			x = 1000;
 			y = 1000;
 		}
-		else if (first) {
-		x = i;
-		y = j;
-		first = false;
-		}
-		else if(x == i-380){
-			y=y+20;
-			left = false;
-		}
-		else if(x>=700) {
-			left=true;
-		}
 		g.setColor(color);
 		g.fillRect(x,y, 20, 20);
-		
-	}//draw
-
+	}//end draw(g, i, j)
 }//end class

@@ -10,7 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 //---------------------------------------------------------------------------------------------
 // Skriv in vad programmet gör
 //---------------------------------------------------------------------------------------------
@@ -35,10 +34,9 @@ implements ActionListener, Runnable, KeyListener {
 // Konstruktor
 //---------------------------------------------------------------------------------------------
 	public SpaceInvaders(){
-// Här dras bearbetningen igång
+//Här dras bearbetningen igång
 		this.setLayout(null);
 		addKeyListener(this);
-
 //Knapp
 		startKnapp = new JButton("PLAY");
 		startKnapp.setSize(700,50);
@@ -49,43 +47,36 @@ implements ActionListener, Runnable, KeyListener {
 		startKnapp.setBackground(Color.lightGray);
 		startKnapp.addActionListener(this);
 		this.add(startKnapp);
-		
+//Skapa alien
 		for (int i=0; i<8; i=i+1) {
 			for (int j=0; j<5; j=j+1) {
 				alien[i][j] = new Alien();
 			}//for j
 		}//for i 
-	}//end konstraktor
+	}//end konstruktor
 //---------------------------------------------------------------------------------------------
 // Metoder som bearbetar -motor
 //---------------------------------------------------------------------------------------------
 	public void actionPerformed(ActionEvent e){
-		//actionPerformed
-			startKnapp.setVisible(false);
-			startKnapp.removeActionListener(this);
-			t.start();
+//actionPerformed
+		startKnapp.setVisible(false);
+		startKnapp.removeActionListener(this);
+		t.start();
 	}//end actionPerformed
-	//Run
+//Run
 		public void run(){
 			requestFocus();
 			while(true){
 				try{Thread.sleep(25);}
 				catch(InterruptedException ie){}
-				
 				for (int i=0; i<8; i=i+1) {
 					for (int j=0; j<5; j=j+1) {
 						alien[i][j].move();
 					}//for j
 				}//for i 
-				
+				move();
 				shot.move();
 				hit();
-				if (pilLeft) {
-					plyrX = plyrX - vx;
-				}
-				if (pilRight) {
-					plyrX = plyrX + vx;
-				}
 				endGame();
 				repaint();
 			}//while 
@@ -93,7 +84,6 @@ implements ActionListener, Runnable, KeyListener {
 //--------------------------------------------------------------------------------------------------
 // Knapptryckningar
 //---------------------------------------------------------------------------------------------------	
-
 //keyPressed
 	public void keyPressed(KeyEvent ke){
 		if(ke.getKeyCode() == KeyEvent.VK_LEFT) 	pilLeft 	= true;
@@ -109,41 +99,85 @@ implements ActionListener, Runnable, KeyListener {
 //keyTyped
 	public void keyTyped(KeyEvent ke){}
 //---------------------------------------------------------------------------------------------
-
-// Counter
+// endGame
+// Kollar om spelaren vunnit genom att träffa 40 (alla) aliens
 //---------------------------------------------------------------------------------------------
-		public void endGame(){		
-//			System.out.println("move();");
-			if (hits==40) {
-				JOptionPane.showMessageDialog(null,"Du vann!");
-				for (int i=0; i<8; i=i+1) {
-					for (int j=0; j<5; j=j+1) {
-						alien[i][j].destroyed = false;
-						hits=0;
-					}//for j
-				}//for i 
-			}
-		}// end move()
+	public void endGame(){		
+//System.out.println("endGame();");
+		if (hits==40) {
+			JOptionPane.showMessageDialog(null,"Du vann!");
+			t.stop();
+		}//end if
+	}//end endGame()
 //---------------------------------------------------------------------------------------------
-
-// Hit detection
+// Move
+// Hanterar riktningsändring av aliens samt flyttning i Y-led,
+// Riktningsändring av spelare och limiteringar
+// Förlustvillkor
 //---------------------------------------------------------------------------------------------
-		public void hit(){		
-//					System.out.println("move();");
-			for (int i=0; i<8; i=i+1) {
-				for (int j=0; j<5; j=j+1) {
-					if (shot.posX <= alien[i][j].x+20 	&&
-						shot.posX+10 >= alien[i][j].x	&&
-						shot.posY >= alien[i][j].y		&&
-						shot.posY <= alien[i][j].y+20) {
-						alien[i][j].destroyed = true;
-						shot.posY = plyrY;
-						shot.posX = plyrX;
-						hits ++;
-						}	
-				}//for j
-			}//for i 
-		}// end move()
+	public void move(){		
+//System.out.println("move();");
+		for (int i=0; i<8; i=i+1) {
+			for (int j=0; j<5; j=j+1) {
+				
+				if (!alien[i][j].destroyed &&
+					alien[i][j].x>=680) {
+					for (int a=0; a<8; a=a+1) {
+						for (int b=0; b<5; b=b+1) {
+							alien[a][b].left = true;
+							alien[a][b].y = alien[a][b].y+30;
+						}//end for b
+					}//end for a
+				}//end if
+				
+				else if (!alien[i][j].destroyed &&
+						alien[i][j].x<=0) {
+					for (int a=0; a<8; a=a+1) {
+						for (int b=0; b<5; b=b+1) {
+							alien[a][b].left = false;
+							alien[a][b].y = alien[a][b].y+30;
+						}//end for b
+					}//end for a
+				}//end else if
+					
+				if (!alien[i][j].destroyed &&
+					alien[i][j].y>=plyrY) {
+					JOptionPane.showMessageDialog(null,"Du förlorade!");
+					t.stop();
+				}//end if
+					
+			}//for j
+		}//for i 
+		if (pilLeft) {
+			plyrX = plyrX - vx;
+			if(plyrX<0) plyrX = 0; 
+		}//end if left
+		
+		if (pilRight) {
+			plyrX = plyrX + vx;
+			if(plyrX>660) plyrX = 660; 
+		}//end if right
+	}// end move()
+//---------------------------------------------------------------------------------------------
+// Hit
+// Kollar om skott träffat en alien
+//---------------------------------------------------------------------------------------------
+	public void hit(){		
+		for (int i=0; i<8; i=i+1) {
+			for (int j=0; j<5; j=j+1) {
+				if (shot.posX <= alien[i][j].x+20 	&&
+					shot.posX+10 >= alien[i][j].x	&&
+					shot.posY >= alien[i][j].y		&&
+					shot.posY <= alien[i][j].y+20) {
+					
+					alien[i][j].destroyed = true;
+					shot.posY = plyrY;
+					shot.posX = plyrX;
+					hits ++;
+					}//end if	
+			}//for j
+		}//for i 
+	}//end hit()
 //--------------------------------------------------------------------------------------------------
 // Rita	
 //--------------------------------------------------------------------------------------------------
@@ -153,14 +187,9 @@ implements ActionListener, Runnable, KeyListener {
 		g.fillRect(0,0,700,700);
 		for (int i=0; i<8; i=i+1) {
 			for (int j=0; j<5; j=j+1) {
-					slutX = posX+40*i;
-					slutY = posY+40*j;
-				if (!alien[i][j].destroyed &&
-					alien[i][j].x>700) {
-					
-				}
-				alien[i][j].draw(g, slutX, slutY);
-				
+				slutX = posX+40*i;
+				slutY = posY+40*j;
+				alien[i][j].draw(g, slutX, slutY);	
 			}//for j
 		}//for i 
 		
@@ -168,8 +197,6 @@ implements ActionListener, Runnable, KeyListener {
 		g.fillRect(plyrX,plyrY, 20, 20);
 
 		shot.draw(g, plyrX, plyrY);
-		//System.out.println("shot.draw");
-
 	}//end paint
 //---------------------------------------------------------------------------------------------
 // Drar igång programmet
@@ -184,7 +211,6 @@ implements ActionListener, Runnable, KeyListener {
 		f.add(p);
 		f.setVisible(true);
 	}//end main()
-
 }//end class
 
 

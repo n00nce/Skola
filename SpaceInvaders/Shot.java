@@ -29,16 +29,15 @@ public class Shot extends JPanel {
 	public void draw(Graphics g, int i, int j) {
 		x = i;
 		y = j;
-		if (moving==false) {
+		if (moving == false) {
 		posX = x;
 		moving = true;
-		}
+		}//end if
 		if (posY < 0) {
 		posY = y;
 		moving = false;
-		}
+		}//end if
 		g.setColor(Color.white);
 		g.fillRect(posX+5,posY, 10, 10);
 	}//draw
-
 }//end class

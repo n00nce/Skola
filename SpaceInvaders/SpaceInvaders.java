@@ -20,14 +20,12 @@ implements ActionListener, Runnable, KeyListener {
 //---------------------------------------------------------------------------------------------
 	Thread t = new Thread(this);
 	JButton startKnapp;
-	boolean pilLeft = false, pilRight = false, shoot = false;
+	boolean pilLeft = false, pilRight = false;
+	boolean run = true;
 	Alien[][] alien = new Alien[8][5];
 	Shot shot = new Shot();
-	int posX=380;
-	int posY=100;
-	int vx=10;
-	int plyrX = 340; 
-	int plyrY = 650;
+	int posX=380, posY=100, vx=10;
+	int plyrX = 340, plyrY = 650;
 	int slutX, slutY;
 	int hits = 0;
 //---------------------------------------------------------------------------------------------
@@ -55,7 +53,7 @@ implements ActionListener, Runnable, KeyListener {
 		}//for i 
 	}//end konstruktor
 //---------------------------------------------------------------------------------------------
-// Metoder som bearbetar -motor
+// ActionPerformed
 //---------------------------------------------------------------------------------------------
 	public void actionPerformed(ActionEvent e){
 //actionPerformed
@@ -63,24 +61,26 @@ implements ActionListener, Runnable, KeyListener {
 		startKnapp.removeActionListener(this);
 		t.start();
 	}//end actionPerformed
-//Run
-		public void run(){
-			requestFocus();
-			while(true){
-				try{Thread.sleep(25);}
-				catch(InterruptedException ie){}
-				for (int i=0; i<8; i=i+1) {
-					for (int j=0; j<5; j=j+1) {
-						alien[i][j].move();
-					}//for j
-				}//for i 
-				move();
-				shot.move();
-				hit();
-				endGame();
-				repaint();
-			}//while 
-		}//end run()
+//---------------------------------------------------------------------------------------------
+// Run
+//---------------------------------------------------------------------------------------------
+	public void run(){
+		requestFocus();
+		while(run){
+			try{Thread.sleep(25);}
+			catch(InterruptedException ie){}
+			for (int i=0; i<8; i=i+1) {
+				for (int j=0; j<5; j=j+1) {
+					alien[i][j].move();
+				}//for j
+			}//for i 
+			move();
+			shot.move();
+			hit();
+			endGame();
+			repaint();
+		}//while 
+	}//end run()
 //--------------------------------------------------------------------------------------------------
 // Knapptryckningar
 //---------------------------------------------------------------------------------------------------	
@@ -88,13 +88,11 @@ implements ActionListener, Runnable, KeyListener {
 	public void keyPressed(KeyEvent ke){
 		if(ke.getKeyCode() == KeyEvent.VK_LEFT) 	pilLeft 	= true;
 		if(ke.getKeyCode() == KeyEvent.VK_RIGHT) 	pilRight 	= true;
-		//if(ke.getKeyCode() == KeyEvent.VK_SPACE)	shoot		= true;
 	}//end keyPressed
 //keyReleased
 	public void keyReleased(KeyEvent ke) {
 		if(ke.getKeyCode() == KeyEvent.VK_LEFT) 	pilLeft 	= false;
 		if(ke.getKeyCode() == KeyEvent.VK_RIGHT) 	pilRight 	= false;
-		//if(ke.getKeyCode() == KeyEvent.VK_SPACE)	shoot		= false;
 	}//end keyReleased
 //keyTyped
 	public void keyTyped(KeyEvent ke){}
@@ -106,7 +104,8 @@ implements ActionListener, Runnable, KeyListener {
 //System.out.println("endGame();");
 		if (hits==40) {
 			JOptionPane.showMessageDialog(null,"Du vann!");
-			t.stop();
+			t.interrupt();
+			run = false;
 		}//end if
 	}//end endGame()
 //---------------------------------------------------------------------------------------------
@@ -120,42 +119,40 @@ implements ActionListener, Runnable, KeyListener {
 		for (int i=0; i<8; i=i+1) {
 			for (int j=0; j<5; j=j+1) {
 				
-				if (!alien[i][j].destroyed &&
-					alien[i][j].x>=680) {
+				if (!alien[i][j].destroyed && alien[i][j].x>=680) {
 					for (int a=0; a<8; a=a+1) {
 						for (int b=0; b<5; b=b+1) {
 							alien[a][b].left = true;
-							alien[a][b].y = alien[a][b].y+30;
+							alien[a][b].y = alien[a][b].y+20;
 						}//end for b
 					}//end for a
 				}//end if
 				
-				else if (!alien[i][j].destroyed &&
-						alien[i][j].x<=0) {
+				else if (!alien[i][j].destroyed && alien[i][j].x<=0) {
 					for (int a=0; a<8; a=a+1) {
 						for (int b=0; b<5; b=b+1) {
 							alien[a][b].left = false;
-							alien[a][b].y = alien[a][b].y+30;
+							alien[a][b].y = alien[a][b].y+20;
 						}//end for b
 					}//end for a
 				}//end else if
 					
-				if (!alien[i][j].destroyed &&
-					alien[i][j].y>=plyrY) {
+				if (!alien[i][j].destroyed && alien[i][j].y>=plyrY) {
 					JOptionPane.showMessageDialog(null,"Du förlorade!");
-					t.stop();
+					t.interrupt();
+					run = false;
 				}//end if
 					
 			}//for j
 		}//for i 
 		if (pilLeft) {
 			plyrX = plyrX - vx;
-			if(plyrX<0) plyrX = 0; 
+			if (plyrX<0) plyrX = 0; 
 		}//end if left
 		
 		if (pilRight) {
 			plyrX = plyrX + vx;
-			if(plyrX>660) plyrX = 660; 
+			if (plyrX>660) plyrX = 660; 
 		}//end if right
 	}// end move()
 //---------------------------------------------------------------------------------------------

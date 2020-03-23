@@ -38,11 +38,11 @@ public class Alien extends JPanel {
 			x = i;
 			y = j;
 			first = false;
-		}
+		}//end if
 		else if (destroyed) {
 			x = 1000;
 			y = 1000;
-		}
+		}//end else if
 		g.setColor(color);
 		g.fillRect(x,y, 20, 20);
 	}//end draw(g, i, j)
